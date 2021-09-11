@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { listContext } from './FormInput';
 import ListItem from './ListItem';
-const List = ({ items, removeItem, editItem }) => {
+const List = () => {
+  const { list } = useContext(listContext);
+
   return (
     <div className='task-list'>
-      {items.map((item) => {
-        return (
-          <ListItem item={item} removeItem={removeItem} editItem={editItem} />
-        );
+      {list.map((item) => {
+        return <ListItem item={item} key={item.id} />;
       })}
     </div>
   );

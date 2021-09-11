@@ -1,12 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { listContext } from './FormInput';
 
-const Alert = ({ type, msg, removeAlert, list }) => {
+const Alert = () => {
+  const {
+    alert: { type, msg },
+    showAlert,
+    list,
+  } = useContext(listContext);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
-      removeAlert();
+      showAlert();
     }, 3000);
     return () => clearTimeout(timeout);
   }, [list]);
+
   return <p className={`alert alert-${type}`}>{msg}</p>;
 };
 

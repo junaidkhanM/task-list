@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { listContext } from './FormInput';
 
-const ListItem = ({ item, editItem, removeItem }) => {
+const ListItem = ({ item }) => {
   const { id, title } = item;
+  const { removeItem, editItem } = useContext(listContext);
+
   return (
     <article className='task-item' key={id}>
       <p className='title'>{title}</p>

@@ -3,6 +3,8 @@ import Alert from './Alert';
 import List from './List';
 import { getLocalStorage } from './getLocalStorage';
 
+export const listContext = React.createContext();
+
 const FormInput = () => {
   const [name, setName] = useState('');
   const [list, setList] = useState(getLocalStorage());
@@ -62,9 +64,11 @@ const FormInput = () => {
   }, [list]);
 
   return (
-    <section>
+    <listContext.Provider
+      value={{ alert, showAlert, list, removeItem, editItem }}
+    >
       <form className='task-form' onSubmit={handleSubmit}>
-        {alert.show && <Alert {...alert} removeAlert={showAlert} list={list} />}
+        {alert.show && <Alert />}
 
         <h3>Task List</h3>
         <div className='form-control'>
@@ -83,13 +87,13 @@ const FormInput = () => {
 
       {list.length > 0 && (
         <div className='task-container'>
-          <List items={list} removeItem={removeItem} editItem={editItem} />
+          <List />
           <button className='clear-btn' onClick={clearList}>
             clear items
           </button>
         </div>
       )}
-    </section>
+    </listContext.Provider>
   );
 };
 
